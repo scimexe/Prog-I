@@ -1,11 +1,13 @@
 /*
-Scale e serpi è un gioco tradizionale di origine indiana (Gyan Chauper o ज्ञान चौपड़ in Hindi) in cui dei giocatori (assumiamo 2) devono completare un percorso in un tabellone 10x10. I giocatori iniziano entrambi nella casella 1 e si alternano a turni, secondo queste regole:
+Scale e serpi è un gioco tradizionale di origine indiana (Gyan Chauper o ज्ञान चौपड़ in Hindi) in cui dei giocatori (assumiamo 2) devono completare un percorso in un tabellone 10x10. 
+I giocatori iniziano entrambi nella casella 1 e si alternano a turni, secondo queste regole:
 
-All'inizio del turno il giocatore che ha il turno lancia un dado e procede ad avanzare della quantità indicata.
+All'inizio del turno il giocatore che ha il turno lancia un dado e procede ad avanzare della quantità indicata.     OK
 Dopo aver avanzato, il giocatore controlla in che casella è finito:
 Se nella casella c'è la base di una 🪜scala, allora salta direttamente alla casella in cui si trova la cima della 🪜scala.
 Se nella casella c'è la testa di una 🐍serpe, allora salta indietro fino alla casella con la coda della 🐍serpe.
-Se il giocatore aveva ottenuto 6 dal lancio del dado, allora gioca anche il turno successivo, altrimenti il turno passa all'altro giocatore. Un giocatore continua a lanciare il dado e a muoversi fintanto che ottiene 6 dal lancio del dado.
+
+Se il giocatore aveva ottenuto 6 dal lancio del dado, allora gioca anche il turno successivo, altrimenti il turno passa all'altro giocatore. Un giocatore continua a lanciare il dado e a muoversi fintanto che ottiene 6 dal lancio del dado. OK
 Il primo giocatore che raggiunge o supera la casella 100 vince.
 
 Le otto 🪜scale (base, cima) si trovano nelle seguenti caselle:
@@ -14,35 +16,55 @@ Le otto 🪜scale (base, cima) si trovano nelle seguenti caselle:
 mentre le sette 🐍serpi (testa, coda) si trovano nelle seguenti caselle:
 (32,10) (36,6) (48,26) (62,18) (88,24) (95,56) (97,78)
 
-
-
-Leggere il codice fornito e completarlo scrivendo la funzione muovi_giocatore, che deve realizzare il turno di un giocatore. La funzione muovi_giocatore ha i seguenti parametri formali:
-
-dado = la quantità ottenuta dal lancio del dado (tra 1 e 6)
-pos = puntatore ad un intero che contiene la casella del giocatore (maggiore di 1) all'inizio del turno, e che deve essere modificata opportunamente seguendo le regole del gioco.
-La funzione muovi_giocatore deve restituire true se il giocatore gioca anche il turno successivo, false altrimenti.
 */
 
-// Avanza la posizione del giocatore nella casella *pos
-// in funzione del lancio del dado.
-// Parametri:
-//   dado   La quantità ottenuta dal lancio del dado (compresa tra 1 e 6)
-//  *pos    La cella del giocatore che muove
-// Ritorna true se il giocatore gioca ancora il prossimo turno, false altrimenti.
-// Al ritorno, il valore di *pos è stato modificato aggiungendo il lancio 
-// del dado, ed applicando tutte le rimanenti reole sulle scale e sulle serpi
 #include <stdio.h>
 #include <stdbool.h>
 
+bool muovi_giocatore(int dado, int* pos);
+int lancia_dado(void);
+void scale_e_serpi(void);
+
+int main()
+{
+    scale_e_serpi();
+    return 0;
+}
+
 bool muovi_giocatore(int dado, int* pos) {
-    
+
+    int baseScale [] = {1, 4, 8, 21, 28, 50, 71, 80};
+    int cimaScale [] = {38, 14, 30, 42, 76, 67, 92, 99};
+    int testaSerpi [] = {32, 36, 48, 62, 88, 95, 97};
+    int codaSerpi [] = {10, 6, 26, 18, 24, 56, 78};
+
 	bool again = false; //se true, il giocatore gioca un altro turno.
-	
+
+    if (dado == 6) {
+        again = true;
+    }
+
+	*pos +=dado;
+    
+    //check posizione in base scala
+    for (size_t j = 0; j < 8; j++)
+    {
+        if (*pos == baseScale[j]){
+            *pos = cimaScale[j];
+        }
+    }
+
+    //check posizione in testa serpe
+    for (size_t i = 0; i < 7; i++)
+    {
+        if(*pos == testaSerpi[i]){
+            *pos = codaSerpi[i];
+        }
+    }
+
 	return again;
 }
 
-//------------------------------------------------------------------------------
-// LEGGERE MA NON MODIFICARE IL CODICE SEGUENTE
 
 // Simula il lancio di un dado a 6 facce
 int lancia_dado() {
