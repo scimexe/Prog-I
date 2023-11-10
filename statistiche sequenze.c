@@ -16,8 +16,8 @@
 #include <math.h>
 #include <limits.h>
 
-#define rows 5
-#define columns 5
+#define rows 10
+#define columns 15
 
 void scriviSeq(int seq[rows][columns], int nRighe, int nColonne);
 bool leggiSeq(int riga[], int nColonne, int* somma, int* sommaQuadrati, int* massimo);
@@ -32,6 +32,7 @@ int main()
 		if (leggiSeq(seq[k], columns, &somma, &sommaQuadrati, &massimo)){
 			printf("%d %d %d", somma, sommaQuadrati, massimo);
 		}
+		puts("");
 	}
 
 	return 0;
@@ -58,7 +59,7 @@ void scriviSeq(int seq[rows][columns], int nRighe, int nColonne){
 bool leggiSeq(int rigaSeq[], int nColonne, int* somma, int* sommaQuadrati, int* massimo){
 
 	bool notEmpty = true;
-	int max = INT_MIN;
+	*massimo = INT_MIN;
 	*somma = 0;
 	*sommaQuadrati = 0; 
 
@@ -71,10 +72,9 @@ bool leggiSeq(int rigaSeq[], int nColonne, int* somma, int* sommaQuadrati, int* 
 		{
 			*somma+=rigaSeq[i];
 			*sommaQuadrati+= pow(rigaSeq[i], 2);
-
-			if(max>rigaSeq[i])
+			if(*massimo<rigaSeq[i])
 			{
-				max=rigaSeq[i];
+				*massimo=rigaSeq[i];
 			}
 		}
 	}
