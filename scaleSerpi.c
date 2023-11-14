@@ -20,6 +20,8 @@ mentre le sette 🐍serpi (testa, coda) si trovano nelle seguenti caselle:
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 bool muovi_giocatore(int dado, int* pos);
 int lancia_dado(void);
@@ -64,7 +66,6 @@ bool muovi_giocatore(int dado, int* pos) {
 
 	return again;
 }
-
 
 // Simula il lancio di un dado a 6 facce
 int lancia_dado() {
