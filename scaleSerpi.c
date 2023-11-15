@@ -1,4 +1,5 @@
 /*
+ 
 Scale e serpi è un gioco tradizionale di origine indiana (Gyan Chauper o ज्ञान चौपड़ in Hindi) in cui dei giocatori (assumiamo 2) devono completare un percorso in un tabellone 10x10. 
 I giocatori iniziano entrambi nella casella 1 e si alternano a turni, secondo queste regole:
 
